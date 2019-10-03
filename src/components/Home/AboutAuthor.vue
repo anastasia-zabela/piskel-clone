@@ -3,7 +3,7 @@
     <div>
       <h2>Contacts</h2>
       <h3>App developed by Anastasia Zabela for educational purposes during
-        Roling Scopes School course</h3>
+        Rolling Scopes School course</h3>
       <div class="contacts-items">
         <a href='mailto:zabela113@mail.ru' target="_blank" rel="noopener noreferrer">
           <v-icon name='envelope' />

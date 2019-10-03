@@ -1,13 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import store from './store';
 import 'vue-awesome/icons';
-// eslint-disable-next-line import/order
 import Icon from 'vue-awesome/components/Icon.vue';
 
+import store from './store';
 import App from './App.vue';
 import Home from './components/Home/Home.vue';
-import PiskelApp from './components/PiskelApp.vue';
+import PiskelApp from './components/PiskelApp/PiskelApp.vue';
 
 Vue.config.productionTip = false;
 
