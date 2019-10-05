@@ -1,3 +1,29 @@
+// mixins
+
+#hover-time-mixin() {
+  transition: 0.3s;
+
+  &:hover {
+    transition: 0.3s;
+  }
+}
+
+#frame-tools-mixin() {
+  position: absolute;
+  display: none;
+  width: 30px;
+  height: 30px;
+  background: lighten(@bg-color, 15%);
+  border: none;
+  color: @font-color-light;
+  font-size: 20px;
+}
+
+#hover-tool-mixin() {
+  background: @color-2;
+  cursor: pointer;
+}
+
 // colors
 
 @bg-color: #686b70;

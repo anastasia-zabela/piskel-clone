@@ -46,6 +46,9 @@ function addPenTool(canvas) {
   canvas.$el.addEventListener('mousedown', handleMouseDown.bind(canvas));
   canvas.$el.addEventListener('mousemove', handleMouseMove.bind(canvas));
   canvas.$el.addEventListener('mouseup', handleMouseUp.bind(canvas));
+  canvas.$el.addEventListener('touchdown', handleMouseDown.bind(canvas));
+  canvas.$el.addEventListener('touchmove', handleMouseMove.bind(canvas));
+  canvas.$el.addEventListener('touchup', handleMouseUp.bind(canvas));
 }
 
 export default addPenTool;

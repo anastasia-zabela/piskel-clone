@@ -16,6 +16,46 @@ export default new Vuex.Store({
         icon: 'fill-drip',
         shortcut: 'B',
       },
+      sameColor: {
+        name: 'same-color',
+        icon: 'palette',
+        shortcut: 'A',
+      },
+      colorPicker: {
+        name: 'color-picker',
+        icon: 'eye-dropper',
+        shortcut: 'O',
+      },
+      eraser: {
+        name: 'eraser',
+        icon: 'eraser',
+        shortcut: 'E',
+      },
+      line: {
+        name: 'line',
+        icon: 'slash',
+        shortcut: 'L',
+      },
+      rectangle: {
+        name: 'rectangle',
+        icon: 'vector-square',
+        shortcut: 'R',
+      },
+      circle: {
+        name: 'circle',
+        icon: 'regular/circle',
+        shortcut: 'C',
+      },
+      dithering: {
+        name: 'dithering',
+        icon: 'brands/delicious',
+        shortcut: 'T',
+      },
+      lighten: {
+        name: 'lighten',
+        icon: 'adjust',
+        shortcut: 'U',
+      },
     },
     toolsIsActive: {
       pen: false,

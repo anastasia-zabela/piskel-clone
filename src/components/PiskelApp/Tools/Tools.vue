@@ -10,50 +10,46 @@
         v-bind:nameTool="tools.paintBucket.name"
         v-bind:shortcut="tools.paintBucket.shortcut"
         v-bind:title="'Paint bucket tool'" />
-      <!-- <button class="tools__paint-bucket-tool">
-        <v-icon name="fill-drip"></v-icon>
-        <div> (B)</div>
-      </button>
-      <button class="tools__paint-same-color-tool">
-        <v-icon name="palette"></v-icon>
-        <div>Paint all pixel same color (A)</div>
-      </button>
-      <button class="tools__color-picker-tool">
-        <v-icon name="eye-dropper"></v-icon>
-        <div>Color picker tool (O)</div>
-      </button>
-      <button class="tools__eraser-tool">
-        <v-icon name="eraser"></v-icon>
-        <div>Eraser tool (E)</div>
-      </button>
-      <button class="tools__line-tool">
-        <v-icon name="slash"></v-icon>
-        <div>Line tool (L)</div>
-      </button>
-      <button class="tools__rectangle-tool">
-        <v-icon name="vector-square"></v-icon>
-        <div>Rectangle tool (R)</div>
-      </button>
-      <button class="tools__circle-tool">
-        <v-icon name="circle"></v-icon>
-        <div>Circle tool (C)</div>
-      </button>
-      <button class="tools__dithering-tool">
-        <v-icon name="brands/delicious"></v-icon>
-        <div>Dithering tool (T)</div>
-      </button>
-      <button class="tools__lighten-tool">
-        <v-icon name="adjust"></v-icon>
-        <div>Lighten (U)</div>
-      </button>
-      <button class="tools__move-tool" title="Move tool (M)">
-        <v-icon name="hand-paper"></v-icon>
-        <div>Move tool (M)</div>
-      </button>
-      <button class="tools__shape-selection-tool">
-        <v-icon name="magic"></v-icon>
-        <div>Shape selection (S)</div>
-      </button> -->
+      <Tool
+        v-bind:iconTool="tools.sameColor.icon"
+        v-bind:nameTool="tools.sameColor.name"
+        v-bind:shortcut="tools.sameColor.shortcut"
+        v-bind:title="'Paint all pixel same color'" />
+      <Tool
+        v-bind:iconTool="tools.colorPicker.icon"
+        v-bind:nameTool="tools.colorPicker.name"
+        v-bind:shortcut="tools.colorPicker.shortcut"
+        v-bind:title="'Color picker tool'" />
+      <Tool
+        v-bind:iconTool="tools.eraser.icon"
+        v-bind:nameTool="tools.eraser.name"
+        v-bind:shortcut="tools.eraser.shortcut"
+        v-bind:title="'Eraser tool'" />
+      <Tool
+        v-bind:iconTool="tools.line.icon"
+        v-bind:nameTool="tools.line.name"
+        v-bind:shortcut="tools.line.shortcut"
+        v-bind:title="'Line tool'" />
+      <Tool
+        v-bind:iconTool="tools.rectangle.icon"
+        v-bind:nameTool="tools.rectangle.name"
+        v-bind:shortcut="tools.rectangle.shortcut"
+        v-bind:title="'Rectangle tool'" />
+      <Tool
+        v-bind:iconTool="tools.circle.icon"
+        v-bind:nameTool="tools.circle.name"
+        v-bind:shortcut="tools.circle.shortcut"
+        v-bind:title="'Circle tool'" />
+      <Tool
+        v-bind:iconTool="tools.dithering.icon"
+        v-bind:nameTool="tools.dithering.name"
+        v-bind:shortcut="tools.dithering.shortcut"
+        v-bind:title="'Dithering tool'" />
+      <Tool
+        v-bind:iconTool="tools.lighten.icon"
+        v-bind:nameTool="tools.lighten.name"
+        v-bind:shortcut="tools.lighten.shortcut"
+        v-bind:title="'Lighten'" />
     </section>
 </template>
 
@@ -65,11 +61,6 @@ export default {
   components: {
     Tool,
   },
-  data() {
-    return {
-
-    };
-  },
   computed: {
     tools() {
       return this.$store.state.tools;
@@ -80,8 +71,8 @@ export default {
 
 <style lang="less" scoped>
 .tools {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   width: 100px;
   margin: auto 0;
 
@@ -94,6 +85,7 @@ export default {
     background: @color-3;
     color: @font-color-dark;
     outline: none;
+    #hover-time-mixin();
 
     &:hover {
       cursor: pointer;
