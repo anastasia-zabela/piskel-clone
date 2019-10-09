@@ -1,16 +1,18 @@
 <template>
-  <div class="frames-contain__wrapper-frame selected"
-    data-num-frame="0"
+  <div v-bind:class="['frames-contain__wrapper-frame', { selected: isSelect }]"
     @mouseenter="showFrameTools"
-    @mouseleave="hideFrameTools">
-    <canvas class="frames-contain__frame" width="150px" height="150px"></canvas>
-    <button class="frames-contain__number">1</button>
+    @mouseleave="hideFrameTools"
+    >
+    <canvas class="frames-contain__frame" width="150px" height="150px"
+      @click="selectFrame"></canvas>
+    <button class="frames-contain__number">{{ id + 1 }}</button>
     <button
-      v-bind:class="['frames-contain__tool--delete-tool', {'visible-tools': hoverOn}]">
+      v-bind:class="['frames-contain__tool--delete-tool', {'visible-tools': hoverOn && notAlone}]"
+      v-on:click="$emit('delete', id)">
       <v-icon name="trash"></v-icon>
     </button>
     <button
-      v-bind:class="['frames-contain__tool--move-tool', {'visible-tools': hoverOn}]">
+      v-bind:class="['frames-contain__tool--move-tool', {'visible-tools': hoverOn && notAlone}]">
       <v-icon name="arrows-alt"></v-icon>
     </button>
     <button
@@ -23,10 +25,19 @@
 <script>
 export default {
   name: 'Frame',
+  props: {
+    id: Number,
+    notAlone: Boolean,
+  },
   data() {
     return {
       hoverOn: false,
     };
+  },
+  computed: {
+    isSelect() {
+      return this.id === this.$store.state.frames.currentFrame;
+    },
   },
   methods: {
     showFrameTools() {
@@ -35,6 +46,35 @@ export default {
     hideFrameTools() {
       this.hoverOn = false;
     },
+    selectFrame() {
+      const ctxCanvas = this.$store.state.canvas.ctxView;
+      const { canvas } = this.$store.state.canvas;
+      const { framesData } = this.$store.state.frames;
+
+      this.$store.state.frames.currentFrame = this.id;
+      this.$store.state.frames.ctxFrame = this.$el.children[0].getContext('2d');
+
+      ctxCanvas.clearRect(0, 0, canvas.width, canvas.height);
+      framesData[this.id].forEach((elem) => {
+        if (elem !== null) {
+          const color = elem[3];
+          ctxCanvas.fillStyle = color;
+          ctxCanvas.fillRect(elem[0], elem[1], elem[2], elem[2]);
+        }
+      });
+    },
+  },
+  mounted() {
+    const { canvas, ctxView } = this.$store.state.canvas;
+    if (ctxView) {
+      ctxView.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    this.$store.state.frames.framesData.push(new Array(this.$store.state.canvas.sizeCanvas ** 2)
+      .fill(null));
+    this.$store.state.frames.framesData[this.id][0] = this.id;
+    this.$store.state.frames.currentFrame = this.id;
+    this.$store.state.frames.ctxFrame = this.$el.children[0].getContext('2d');
   },
 };
 </script>
@@ -46,6 +86,7 @@ export default {
     width: 150px;
     height: 150px;
     margin-bottom: 25px;
+    border: 4px solid transparent;
   }
 
   &__frame {
@@ -54,7 +95,6 @@ export default {
 
   &__number {
     position: absolute;
-    top: 0;
     left: 0;
     width: 30px;
     height: 30px;
@@ -67,7 +107,6 @@ export default {
     &--delete-tool {
       #frame-tools-mixin();
       #hover-time-mixin();
-      top: 0;
       right: 0;
     }
 
@@ -83,18 +122,6 @@ export default {
       #hover-time-mixin();
       bottom: 0;
       right: 0;
-    }
-
-    &--delete-tool:hover {
-      #hover-tool-mixin();
-    }
-
-    &--move-tool:hover {
-      #hover-tool-mixin();
-    }
-
-    &--copy-tool:hover {
-      #hover-tool-mixin();
     }
   }
 }

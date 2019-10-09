@@ -14,7 +14,7 @@
         v-bind:iconTool="tools.sameColor.icon"
         v-bind:nameTool="tools.sameColor.name"
         v-bind:shortcut="tools.sameColor.shortcut"
-        v-bind:title="'Paint all pixel same color'" />
+        v-bind:title="'Paint all pixels same color'" />
       <Tool
         v-bind:iconTool="tools.colorPicker.icon"
         v-bind:nameTool="tools.colorPicker.name"

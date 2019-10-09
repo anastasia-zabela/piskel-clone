@@ -11,6 +11,7 @@ export default {
     },
   },
   mounted() {
+    this.$store.state.canvas.canvas = this.$el;
     this.$store.state.canvas.ctxView = this.ctx;
   },
 };

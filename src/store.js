@@ -5,6 +5,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    frames: {
+      framesData: [],
+      currentFrame: 0,
+      ctxFrame: null,
+    },
     tools: {
       pen: {
         name: 'pen',
@@ -66,6 +71,11 @@ export default new Vuex.Store({
       ctxDraw: null,
       ctxView: null,
       sizeRect: null,
+      sizeCanvas: 32,
+    },
+    colors: {
+      primaryColor: '#29292a',
+      secondaryColor: '#acc7cd',
     },
   },
   mutations: {

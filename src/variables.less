@@ -17,11 +17,12 @@
   border: none;
   color: @font-color-light;
   font-size: 20px;
-}
+  outline: none;
 
-#hover-tool-mixin() {
-  background: @color-2;
-  cursor: pointer;
+  &:hover {
+    background: @color-2;
+    cursor: pointer;
+  }
 }
 
 // colors

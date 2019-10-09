@@ -19,8 +19,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.state.canvas.canvas = this.$el;
-    this.$store.state.canvas.ctx = this.ctx;
+    this.$store.state.canvas.ctxDraw = this.ctx;
     this.$store.state.canvas.sizeRect = this.sizeRect;
 
     addPenTool(this);
