@@ -5,8 +5,9 @@
         is="frame"
         v-for="frame in frames"
         v-bind:key="frame.id"
-        v-bind:id="frame.id"
+        v-bind:num="frame.num"
         v-bind:notAlone="moreThenOneFrame"
+        v-on:selectFrame="selectFrame"
         v-on:delete="deleteFrame">
       </div>
       <button class="frames-contain__frame-add" title="Add new frame" @click="addNewFrame">
@@ -29,10 +30,12 @@ export default {
       frames: [
         {
           id: 0,
+          num: 0,
           frame: Frame,
         },
       ],
       nextId: 1,
+      nextNum: 1,
     };
   },
   computed: {
@@ -44,9 +47,28 @@ export default {
     addNewFrame() {
       this.frames.push({
         id: this.nextId,
+        num: this.nextNum,
         frame: Frame,
       });
       this.nextId += 1;
+      this.nextNum += 1;
+    },
+    selectFrame(id) {
+      const ctxCanvas = this.$store.state.canvas.ctxView;
+      const { canvas } = this.$store.state.canvas;
+      const { framesData } = this.$store.state.frames;
+
+      this.$store.state.frames.currentFrame = id;
+      // this.$store.state.frames.ctxFrame = this.$el.children[0].getContext('2d');
+
+      ctxCanvas.clearRect(0, 0, canvas.width, canvas.height);
+      framesData[id].forEach((elem) => {
+        if (elem !== null) {
+          const color = elem[3];
+          ctxCanvas.fillStyle = color;
+          ctxCanvas.fillRect(elem[0], elem[1], elem[2], elem[2]);
+        }
+      });
     },
     deleteFrame(id) {
       this.frames.splice(id, 1);
@@ -54,14 +76,16 @@ export default {
 
       this.frames.forEach((item, i) => {
         const frame = item;
-        frame.id = i;
+        frame.num = i;
       });
-      this.nextId = this.frames.length;
+      this.nextNum = this.frames.length;
       console.log(id);
 
       if (this.$store.state.frames.currentFrame === this.frames.length) {
         this.$store.state.frames.currentFrame = this.frames.length - 1;
       }
+
+      this.selectFrame(this.$store.state.frames.currentFrame);
     },
   },
 };

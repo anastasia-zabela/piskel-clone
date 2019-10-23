@@ -4,11 +4,11 @@
     @mouseleave="hideFrameTools"
     >
     <canvas class="frames-contain__frame" width="150px" height="150px"
-      @click="selectFrame"></canvas>
-    <button class="frames-contain__number">{{ id + 1 }}</button>
+      @click="$emit('selectFrame', num)"></canvas>
+    <button class="frames-contain__number">{{ num + 1 }}</button>
     <button
       v-bind:class="['frames-contain__tool--delete-tool', {'visible-tools': hoverOn && notAlone}]"
-      v-on:click="$emit('delete', id)">
+      v-on:click="$emit('delete', num)">
       <v-icon name="trash"></v-icon>
     </button>
     <button
@@ -26,7 +26,7 @@
 export default {
   name: 'Frame',
   props: {
-    id: Number,
+    num: Number,
     notAlone: Boolean,
   },
   data() {
@@ -36,7 +36,14 @@ export default {
   },
   computed: {
     isSelect() {
-      return this.id === this.$store.state.frames.currentFrame;
+      return this.num === this.$store.state.frames.currentFrame;
+    },
+  },
+  watch: {
+    isSelect() {
+      if (this.isSelect) {
+        this.$store.state.frames.ctxFrame = this.$el.children[0].getContext('2d');
+      }
     },
   },
   methods: {
@@ -46,23 +53,23 @@ export default {
     hideFrameTools() {
       this.hoverOn = false;
     },
-    selectFrame() {
-      const ctxCanvas = this.$store.state.canvas.ctxView;
-      const { canvas } = this.$store.state.canvas;
-      const { framesData } = this.$store.state.frames;
+    // selectFrame() {
+    //   const ctxCanvas = this.$store.state.canvas.ctxView;
+    //   const { canvas } = this.$store.state.canvas;
+    //   const { framesData } = this.$store.state.frames;
 
-      this.$store.state.frames.currentFrame = this.id;
-      this.$store.state.frames.ctxFrame = this.$el.children[0].getContext('2d');
+    //   this.$store.state.frames.currentFrame = this.id;
+    //   this.$store.state.frames.ctxFrame = this.$el.children[0].getContext('2d');
 
-      ctxCanvas.clearRect(0, 0, canvas.width, canvas.height);
-      framesData[this.id].forEach((elem) => {
-        if (elem !== null) {
-          const color = elem[3];
-          ctxCanvas.fillStyle = color;
-          ctxCanvas.fillRect(elem[0], elem[1], elem[2], elem[2]);
-        }
-      });
-    },
+    //   ctxCanvas.clearRect(0, 0, canvas.width, canvas.height);
+    //   framesData[this.id].forEach((elem) => {
+    //     if (elem !== null) {
+    //       const color = elem[3];
+    //       ctxCanvas.fillStyle = color;
+    //       ctxCanvas.fillRect(elem[0], elem[1], elem[2], elem[2]);
+    //     }
+    //   });
+    // },
   },
   mounted() {
     const { canvas, ctxView } = this.$store.state.canvas;
@@ -72,8 +79,7 @@ export default {
 
     this.$store.state.frames.framesData.push(new Array(this.$store.state.canvas.sizeCanvas ** 2)
       .fill(null));
-    this.$store.state.frames.framesData[this.id][0] = this.id;
-    this.$store.state.frames.currentFrame = this.id;
+    this.$store.state.frames.currentFrame = this.num;
     this.$store.state.frames.ctxFrame = this.$el.children[0].getContext('2d');
   },
 };

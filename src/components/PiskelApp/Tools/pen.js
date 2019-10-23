@@ -30,7 +30,6 @@ function drawPixel(e) {
           ctxView.fillRect(h, v, sizeRect, sizeRect);
           ctxFrame.drawImage(canvas, 0, 0, 150, 150);
           setFramesData.apply(this, [h, v]);
-          console.log(this.$store.state.frames.framesData);
         }
       }
     }
