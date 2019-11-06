@@ -1,6 +1,9 @@
 <template>
   <section class="piskel-app">
-    <Tools />
+    <div class="piskel-col">
+      <Tools />
+      <ColorPicker />
+    </div>
     <Frames />
     <Canvas />
   </section>
@@ -10,6 +13,7 @@
 import Tools from './Tools/Tools.vue';
 import Frames from './Frames/FrameContain.vue';
 import Canvas from './Canvas/CanvasContain.vue';
+import ColorPicker from './Colors/ColorPickerContain.vue';
 
 export default {
   name: 'PiskelApp',
@@ -17,6 +21,7 @@ export default {
     Tools,
     Frames,
     Canvas,
+    ColorPicker,
   },
 };
 </script>
@@ -27,5 +32,9 @@ export default {
   align-items: center;
   justify-content: space-evenly;
   height: 100vh - 5vh;
+}
+
+.piskel-col {
+  height: inherit;
 }
 </style>

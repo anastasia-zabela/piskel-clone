@@ -27,7 +27,7 @@ export default {
 .canvas-contain {
   position: relative;
   margin: auto;
-  width: 800px;
-  height: 800px;
+  width: 85vh;
+  height: 85vh;
 }
 </style>

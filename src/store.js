@@ -74,8 +74,8 @@ export default new Vuex.Store({
       sizeCanvas: 32,
     },
     colors: {
-      primaryColor: '#29292a',
-      secondaryColor: '#acc7cd',
+      primary: 'rgb(32, 32, 32)',
+      secondary: 'rgb(224, 224, 224)',
     },
   },
   mutations: {

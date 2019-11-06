@@ -73,14 +73,14 @@ export default {
 .tools {
   display: flex;
   flex-direction: column;
-  width: 100px;
-  margin: auto 0;
+  align-items: center;
+  width: 10vh;
+  margin: 5vh 0;
 
   &__button-tool {
     position: relative;
-    height: 50px;
-    width: 50px;
-    font-size: 25px;
+    height: 5vh;
+    width: 5vh;
     border: 1px solid @bg-color;
     background: @color-3;
     color: @font-color-dark;

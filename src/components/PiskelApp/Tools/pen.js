@@ -17,18 +17,18 @@ function fillSpaces(h, v) {
 function drawPixel(e) {
   if (this.$store.state.toolsIsActive.pen) {
     const { canvas, ctxView, sizeRect } = this.$store.state.canvas;
-    const { ctxFrame } = this.$store.state.frames;
+    const { ctxFrame, frameWidth } = this.$store.state.frames;
     for (let h = 0; h < canvas.width; h += sizeRect) {
       for (let v = 0; v < canvas.height; v += sizeRect) {
         if (h + sizeRect > e.offsetX && h <= e.offsetX
         && v + sizeRect > e.offsetY && v <= e.offsetY) {
-          ctxView.fillStyle = this.$store.state.colors.primaryColor;
+          ctxView.fillStyle = this.$store.state.colors.primary;
           fillSpaces.apply(this, [h, v]);
           x0 = h / sizeRect;
           y0 = v / sizeRect;
 
           ctxView.fillRect(h, v, sizeRect, sizeRect);
-          ctxFrame.drawImage(canvas, 0, 0, 150, 150);
+          ctxFrame.drawImage(canvas, 0, 0, frameWidth, frameWidth);
           setFramesData.apply(this, [h, v]);
         }
       }

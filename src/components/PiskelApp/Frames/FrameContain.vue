@@ -4,11 +4,12 @@
       <div
         is="frame"
         v-for="frame in frames"
-        v-bind:key="frame.id"
+        v-bind:key="frame.keyId"
         v-bind:num="frame.num"
         v-bind:notAlone="moreThenOneFrame"
         v-on:selectFrame="selectFrame"
-        v-on:delete="deleteFrame">
+        v-on:copyFrame="copyFrame"
+        v-on:deleteFrame="deleteFrame">
       </div>
       <button class="frames-contain__frame-add" title="Add new frame" @click="addNewFrame">
         <v-icon name="plus" scale="1.5" style=" margin-top: 2px; "></v-icon>
@@ -29,7 +30,7 @@ export default {
     return {
       frames: [
         {
-          id: 0,
+          keyId: 0,
           num: 0,
           frame: Frame,
         },
@@ -46,7 +47,7 @@ export default {
   methods: {
     addNewFrame() {
       this.frames.push({
-        id: this.nextId,
+        keyId: this.nextId,
         num: this.nextNum,
         frame: Frame,
       });
@@ -56,19 +57,36 @@ export default {
     selectFrame(id) {
       const ctxCanvas = this.$store.state.canvas.ctxView;
       const { canvas } = this.$store.state.canvas;
-      const { framesData } = this.$store.state.frames;
 
       this.$store.state.frames.currentFrame = id;
-      // this.$store.state.frames.ctxFrame = this.$el.children[0].getContext('2d');
 
       ctxCanvas.clearRect(0, 0, canvas.width, canvas.height);
-      framesData[id].forEach((elem) => {
+      this.$store.state.frames.framesData[id].forEach((elem) => {
         if (elem !== null) {
           const color = elem[3];
           ctxCanvas.fillStyle = color;
           ctxCanvas.fillRect(elem[0], elem[1], elem[2], elem[2]);
         }
       });
+    },
+    copyFrame(id) {
+      this.frames.splice(id + 1, 0, {
+        keyId: this.nextId,
+        num: id,
+        frame: Frame,
+      });
+      this.nextId += 1;
+      this.nextNum += 1;
+
+      this.frames.forEach((item, i) => {
+        const frame = item;
+        frame.num = i;
+      });
+
+      const copyFrameData = this.$store.state.frames.framesData.slice(id, 1);
+      this.$store.state.frames.framesData.splice(id, 0, copyFrameData[0]);
+
+      this.selectFrame(this.$store.state.frames.currentFrame + 1);
     },
     deleteFrame(id) {
       this.frames.splice(id, 1);
@@ -79,7 +97,6 @@ export default {
         frame.num = i;
       });
       this.nextNum = this.frames.length;
-      console.log(id);
 
       if (this.$store.state.frames.currentFrame === this.frames.length) {
         this.$store.state.frames.currentFrame = this.frames.length - 1;
@@ -102,7 +119,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 200px;
+    width: 20vh;
     overflow-y: scroll;
     border-left: 2px solid #ccdee2;
   }
@@ -122,14 +139,13 @@ export default {
   }
 
   &__frame-add {
-    width: 50px;
-    min-height: 50px;
+    width: 5vh;
+    min-height: 5vh;
     margin-bottom: 20px;
-    font-size: 20px;
     color: @font-color-dark;
     background: @color-1;
     border: 2px solid @font-color-dark;
-    border-radius: 25px;
+    border-radius: 100%;
     outline: none;
     #hover-time-mixin();
 

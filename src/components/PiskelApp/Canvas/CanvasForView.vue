@@ -1,8 +1,10 @@
 <template>
-  <canvas class="canvas-contain__drawing-canvas" width="800px" height="800px"></canvas>
+  <canvas class="canvas-contain__drawing-canvas"></canvas>
 </template>
 
 <script>
+import addPenTool from '../Tools/pen';
+
 export default {
   name: 'CanvasForView',
   computed: {
@@ -11,8 +13,13 @@ export default {
     },
   },
   mounted() {
+    this.$el.width = this.$store.state.canvas.canvasWidth;
+    this.$el.height = this.$store.state.canvas.canvasWidth;
+
     this.$store.state.canvas.canvas = this.$el;
     this.$store.state.canvas.ctxView = this.ctx;
+
+    addPenTool(this);
   },
 };
 </script>
@@ -23,6 +30,8 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+  width: 85vh;
+  width: 85vh;
   background: url('../../../assets/background-canvas.jpg');
 }
 </style>

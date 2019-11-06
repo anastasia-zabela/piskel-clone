@@ -22,4 +22,8 @@ module.exports = {
       patterns: [],
     },
   },
+
+  configureWebpack: {
+    devtool: 'source-map',
+  },
 };
