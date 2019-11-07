@@ -49,9 +49,9 @@ export default {
         color: lighten(@font-color-dark, 40%);
       }
     }
-  }
 
-  svg {
-    transform: rotate(-90deg);
+    & svg {
+      transform: rotate(-90deg);
+    }
   }
 </style>

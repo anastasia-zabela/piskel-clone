@@ -46,6 +46,9 @@ export default {
   },
   methods: {
     addNewFrame() {
+      const { ctxView, canvas } = this.$store.state.canvas;
+      ctxView.clearRect(0, 0, canvas.width, canvas.height);
+
       this.frames.push({
         keyId: this.nextId,
         num: this.nextNum,

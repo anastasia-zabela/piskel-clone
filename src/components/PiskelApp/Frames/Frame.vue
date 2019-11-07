@@ -16,7 +16,8 @@
       <v-icon name="arrows-alt"></v-icon>
     </button>
     <button
-      v-bind:class="['frames-contain__tool--copy-tool', {'visible-tools': hoverOn}]">
+      v-bind:class="['frames-contain__tool--copy-tool', {'visible-tools': hoverOn}]"
+      @click="$emit('copyFrame', num)" >
       <v-icon name="clone"></v-icon>
     </button>
   </div>
@@ -63,10 +64,7 @@ export default {
     frameCanvas.height = this.$el.clientWidth;
     this.$store.state.frames.frameWidth = this.$el.clientWidth;
 
-    const { canvas, ctxView } = this.$store.state.canvas;
-    if (ctxView) {
-      ctxView.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    const { canvas } = this.$store.state.canvas;
 
     if (!this.$store.state.frames.framesData[this.num]) {
       this.$store.state.frames.framesData.push(new Array(this.$store.state.canvas.sizeCanvas ** 2)
@@ -75,6 +73,11 @@ export default {
 
     this.$store.state.frames.currentFrame = this.num;
     this.$store.state.frames.ctxFrame = frameCanvas.getContext('2d');
+
+    if (canvas) {
+      this.$store.state.frames.ctxFrame.drawImage(canvas, 0, 0,
+        this.$el.clientWidth, this.$el.clientWidth);
+    }
   },
 };
 </script>
