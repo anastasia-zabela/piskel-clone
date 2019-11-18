@@ -6,6 +6,7 @@
     </div>
     <Frames />
     <Canvas />
+    <Preview />
   </section>
 </template>
 
@@ -14,6 +15,7 @@ import Tools from './Tools/Tools.vue';
 import Frames from './Frames/FrameContain.vue';
 import Canvas from './Canvas/CanvasContain.vue';
 import ColorPicker from './Colors/ColorPickerContain.vue';
+import Preview from './Preview/PreviewContain.vue';
 
 export default {
   name: 'PiskelApp',
@@ -22,6 +24,7 @@ export default {
     Frames,
     Canvas,
     ColorPicker,
+    Preview,
   },
 };
 </script>

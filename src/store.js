@@ -77,6 +77,9 @@ export default new Vuex.Store({
       primary: 'rgb(32, 32, 32)',
       secondary: 'rgb(224, 224, 224)',
     },
+    preview: {
+      currentFps: 1,
+    },
   },
   mutations: {
 

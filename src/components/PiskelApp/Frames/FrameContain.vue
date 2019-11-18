@@ -86,8 +86,8 @@ export default {
         frame.num = i;
       });
 
-      const copyFrameData = this.$store.state.frames.framesData.slice(id, 1);
-      this.$store.state.frames.framesData.splice(id, 0, copyFrameData[0]);
+      const copyFrameData = this.$store.state.frames.framesData.slice(id, id + 1);
+      this.$store.state.frames.framesData.splice(id + 1, 0, copyFrameData[0]);
 
       this.selectFrame(this.$store.state.frames.currentFrame + 1);
     },
