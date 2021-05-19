@@ -1,11 +1,12 @@
 <template>
-  <canvas class="canvas-contain__drawing-canvas"></canvas>
+  <canvas ref="canvas" class="canvas-contain__drawing-canvas"></canvas>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import addPenTool from '../Tools/pen';
 
-export default {
+export default defineComponent({
   name: 'CanvasForView',
   computed: {
     ctx() {
@@ -19,9 +20,9 @@ export default {
     this.$store.state.canvas.canvas = this.$el;
     this.$store.state.canvas.ctxView = this.ctx;
 
-    addPenTool(this);
+    addPenTool(this.$refs.canvas as HTMLCanvasElement);
   },
-};
+});
 </script>
 
 <style lang="less" scoped>

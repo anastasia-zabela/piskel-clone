@@ -1,30 +1,35 @@
 <template>
-  <div v-bind:class="['frames-contain__wrapper-frame', { selected: isSelect }]"
+  <div
+    v-bind:class="['frames-contain__wrapper-frame', { selected: isSelect }]"
     @mouseenter="showFrameTools"
     @mouseleave="hideFrameTools"
-    >
-    <canvas class="frames-contain__frame"
-      @click="$emit('selectFrame', num)"></canvas>
+  >
+    <canvas class="frames-contain__frame" @click="$emit('selectFrame', num)"></canvas>
     <button class="frames-contain__number">{{ num + 1 }}</button>
     <button
-      v-bind:class="['frames-contain__tool--delete-tool', {'visible-tools': hoverOn && notAlone}]"
-      @click="$emit('deleteFrame', num)">
+      v-bind:class="['frames-contain__tool--delete-tool', { 'visible-tools': hoverOn && notAlone }]"
+      @click="$emit('deleteFrame', num)"
+    >
       <v-icon name="trash"></v-icon>
     </button>
     <button
-      v-bind:class="['frames-contain__tool--move-tool', {'visible-tools': hoverOn && notAlone}]">
+      v-bind:class="['frames-contain__tool--move-tool', { 'visible-tools': hoverOn && notAlone }]"
+    >
       <v-icon name="arrows-alt"></v-icon>
     </button>
     <button
-      v-bind:class="['frames-contain__tool--copy-tool', {'visible-tools': hoverOn}]"
-      @click="$emit('copyFrame', num)" >
+      v-bind:class="['frames-contain__tool--copy-tool', { 'visible-tools': hoverOn }]"
+      @click="$emit('copyFrame', num)"
+    >
       <v-icon name="clone"></v-icon>
     </button>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'Frame',
   props: {
     num: Number,
@@ -39,8 +44,8 @@ export default {
     };
   },
   computed: {
-    isSelect() {
-      return this.num === this.$store.state.frames.currentFrame;
+    isSelect(): boolean {
+      return this.$props.num === this.$store.state.frames.currentFrame;
     },
   },
   watch: {
@@ -64,22 +69,25 @@ export default {
     frameCanvas.height = this.$el.clientWidth;
     this.$store.state.frames.frameWidth = this.$el.clientWidth;
 
-    const { canvas } = this.$store.state.canvas;
+    const {
+      canvas: { canvas },
+      frames: { ctxFrame },
+    } = this.$store.state;
 
-    if (!this.$store.state.frames.framesData[this.num]) {
-      this.$store.state.frames.framesData.push(new Array(this.$store.state.canvas.sizeCanvas ** 2)
-        .fill(null));
+    if (!this.$store.state.frames.framesData[Number(this.num)]) {
+      this.$store.state.frames.framesData.push(
+        new Array(this.$store.state.canvas.sizeCanvas ** 2).fill(null),
+      );
     }
 
-    this.$store.state.frames.currentFrame = this.num;
+    this.$store.state.frames.currentFrame = Number(this.num);
     this.$store.state.frames.ctxFrame = frameCanvas.getContext('2d');
 
-    if (canvas) {
-      this.$store.state.frames.ctxFrame.drawImage(canvas, 0, 0,
-        this.$el.clientWidth, this.$el.clientWidth);
+    if (canvas && ctxFrame) {
+      ctxFrame.drawImage(canvas, 0, 0, this.$el.clientWidth, this.$el.clientWidth);
     }
   },
-};
+});
 </script>
 
 <style lang="less" scoped>
@@ -135,5 +143,4 @@ export default {
 .visible-tools {
   display: inline-block;
 }
-
 </style>

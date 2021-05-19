@@ -1,16 +1,25 @@
+import { useStore } from '@/store';
+
+const store = useStore();
+
 let pixelData;
 
-function setData(x, y) {
-  const { sizeRect, sizeCanvas } = this.$store.state.canvas;
-  const { primaryColor } = this.$store.state.colors;
+function setData(x: number, y: number) {
+  const { sizeRect, sizeCanvas } = store.state.canvas;
+  const { primary } = store.state.colors;
   const indexPiksel = sizeCanvas * y + x;
-  pixelData[indexPiksel] = [x * sizeRect, y * sizeRect,
-    sizeRect, primaryColor];
+  pixelData[indexPiksel] = [x * sizeRect, y * sizeRect, sizeRect, primary];
 }
 
-function drawLine(x1, y1, x2, y2, ctx) {
-  const setPixelData = setData.bind(this);
-  const { sizeRect, sizeCanvas } = this.$store.state.canvas;
+function drawLine(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  ctx: CanvasRenderingContext2D,
+): number[] {
+  const setPixelData = setData;
+  const { sizeRect, sizeCanvas } = store.state.canvas;
   pixelData = new Array(sizeCanvas ** 2).fill(null);
   const dx = x2 - x1;
   const dy = y2 - y1;
@@ -24,9 +33,13 @@ function drawLine(x1, y1, x2, y2, ctx) {
   let ye;
   if (dy1 <= dx1) {
     if (dx >= 0) {
-      x = x1; y = y1; xe = x2;
+      x = x1;
+      y = y1;
+      xe = x2;
     } else {
-      x = x2; y = y2; xe = x1;
+      x = x2;
+      y = y2;
+      xe = x1;
     }
     ctx.fillRect(x * sizeRect, y * sizeRect, sizeRect, sizeRect);
     setPixelData(x, y);
@@ -47,9 +60,13 @@ function drawLine(x1, y1, x2, y2, ctx) {
     }
   } else {
     if (dy >= 0) {
-      x = x1; y = y1; ye = y2;
+      x = x1;
+      y = y1;
+      ye = y2;
     } else {
-      x = x2; y = y2; ye = y1;
+      x = x2;
+      y = y2;
+      ye = y1;
     }
     ctx.fillRect(x * sizeRect, y * sizeRect, sizeRect, sizeRect);
     setPixelData(x, y);

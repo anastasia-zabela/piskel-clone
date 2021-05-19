@@ -2,13 +2,21 @@
   <div class="preview-contain__fps-block">
     <span>FPS</span>
     <span class="fps-value">{{ fps }}</span>
-    <input class="preview-contain__fps-block--fps-slider" type="range"
-      min="0" max="24" step="1" v-model="fps">
+    <input
+      class="preview-contain__fps-block--fps-slider"
+      type="range"
+      min="0"
+      max="24"
+      step="1"
+      v-model="fps"
+    />
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'FpsBlock',
   data() {
     return {
@@ -20,7 +28,7 @@ export default {
       this.$store.state.preview.currentFps = Number(this.fps);
     },
   },
-};
+});
 </script>
 
 <style lang="less">

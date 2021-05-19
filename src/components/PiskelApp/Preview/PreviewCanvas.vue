@@ -2,8 +2,10 @@
   <canvas class="preview-contain__canvas"></canvas>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'PreviewCanvas',
   props: {
     fps: Number,
@@ -19,8 +21,8 @@ export default {
     frames() {
       return document.getElementsByClassName('frames-contain__wrapper-frame');
     },
-    ms() {
-      return Math.floor(1000 / this.fps);
+    ms(): number {
+      return Math.floor(1000 / Number(this.$props.fps));
     },
   },
   watch: {
@@ -33,6 +35,7 @@ export default {
   methods: {
     createPreviewAnimation() {
       const { ctxPreview } = this.$store.state.preview;
+      if (!ctxPreview) return;
       const preview = this.$el;
 
       this.showAnimation = true;
@@ -40,8 +43,13 @@ export default {
       ctxPreview.clearRect(0, 0, preview.width, preview.height);
       ctxPreview.imageSmoothingEnabled = false;
       if (this.frames[this.indexFrame] !== undefined) {
-        ctxPreview.drawImage(this.frames[this.indexFrame].children[0], 0, 0,
-          preview.width, preview.height);
+        ctxPreview.drawImage(
+          this.frames[this.indexFrame].children[0] as HTMLCanvasElement,
+          0,
+          0,
+          preview.width,
+          preview.height,
+        );
       }
       this.indexFrame = this.indexFrame + 1;
       if (this.indexFrame === this.frames.length) {
@@ -99,8 +107,8 @@ export default {
     //       }
     //     }
 
-  //     await animationFrames();
-  //   },
+    //     await animationFrames();
+    //   },
   },
   mounted() {
     this.$el.width = this.$el.clientWidth;
@@ -109,7 +117,7 @@ export default {
 
     this.createPreviewAnimation();
   },
-};
+});
 </script>
 
 <style lang="less">

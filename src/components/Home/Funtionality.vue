@@ -3,43 +3,42 @@
     <div>
       <ul>
         <li>
-          <div class='icon'>
-            <v-icon name="play-circle"/>
+          <div class="icon">
+            <v-icon name="play-circle" />
           </div>
           <h3>Live preview</h3>
           <p>Check a preview of your animation in real time as you draw.</p>
         </li>
         <li>
-          <div class='icon'>
-            <v-icon name="brands/google"/>
+          <div class="icon">
+            <v-icon name="brands/google" />
           </div>
           <h3>Google Sign in</h3>
-          <p>No need to remember yet another password, just use your
-            Google account to sign in.</p>
+          <p>No need to remember yet another password, just use your Google account to sign in.</p>
         </li>
         <li>
-          <div class='icon'>
+          <div class="icon">
             <v-icon name="file-export" />
           </div>
           <h3>Export to GIF</h3>
           <p>Export your animated sprite to file system in .gif format</p>
         </li>
         <li>
-          <div class='icon'>
+          <div class="icon">
             <v-icon name="cloud-download-alt" />
           </div>
           <h3>Save your session</h3>
           <p>You can save your current session after sign in with google login</p>
         </li>
         <li>
-          <div class='icon'>
+          <div class="icon">
             <v-icon name="forward" />
           </div>
           <h3>Adjustable FPS</h3>
           <p>Customize fps parameter of final animation</p>
         </li>
         <li>
-          <div class='icon'>
+          <div class="icon">
             <v-icon name="pen-fancy" />
           </div>
           <h3>A lot of diffrent tools</h3>

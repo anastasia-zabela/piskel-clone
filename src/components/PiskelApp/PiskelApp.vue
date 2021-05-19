@@ -10,14 +10,15 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import Tools from './Tools/Tools.vue';
 import Frames from './Frames/FrameContain.vue';
 import Canvas from './Canvas/CanvasContain.vue';
 import ColorPicker from './Colors/ColorPickerContain.vue';
 import Preview from './Preview/PreviewContain.vue';
 
-export default {
+export default defineComponent({
   name: 'PiskelApp',
   components: {
     Tools,
@@ -26,7 +27,7 @@ export default {
     ColorPicker,
     Preview,
   },
-};
+});
 </script>
 
 <style scoped lang="less">

@@ -2,10 +2,10 @@
   <article class="landing-page__animation-example">
     <div class="animations">
       <h2>Example sprites</h2>
-      <img src='../../assets/animation1.gif' />
-      <img src='../../assets/animation2.gif' />
-      <img src='../../assets/animation3.gif' />
-      <img src='../../assets/animation4.gif' />
+      <img src="../../assets/animation1.gif" />
+      <img src="../../assets/animation2.gif" />
+      <img src="../../assets/animation3.gif" />
+      <img src="../../assets/animation4.gif" />
     </div>
   </article>
 </template>
