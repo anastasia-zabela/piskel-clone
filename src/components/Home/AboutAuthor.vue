@@ -2,22 +2,33 @@
   <article class="landing-page__about-author">
     <div>
       <h2>Contacts</h2>
-      <h3>App developed by Anastasia Zabela for educational purposes during
-        Rolling Scopes School course</h3>
+      <h3>
+        App developed by Anastasia Zabela for educational purposes during Rolling Scopes School
+        course
+      </h3>
       <div class="contacts-items">
-        <a href='mailto:zabela113@mail.ru' target="_blank" rel="noopener noreferrer">
-          <v-icon name='envelope' />
+        <a href="mailto:zabela113@mail.ru" target="_blank" rel="noopener noreferrer">
+          <v-icon name="envelope" />
         </a>
         <a href="https://t.me/anastasiazabela" target="_blank" rel="noopener noreferrer">
-          <v-icon name='brands/telegram-plane' />
+          <v-icon name="brands/telegram-plane" />
         </a>
-        <a href="https://www.instagram.com/anastasia.lion/" target="_blank" rel="noopener noreferrer">
-          <v-icon name='brands/instagram' />
+        <a
+          href="https://www.instagram.com/anastasia.lion/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <v-icon name="brands/instagram" />
         </a>
         <a href="https://github.com/anastasia-zabela" target="_blank" rel="noopener noreferrer">
-          <v-icon name='brands/github-alt' />
+          <v-icon name="brands/github-alt" />
         </a>
-        <a id="contact-cv" href="https://anastasia-zabela.github.io/rsschool-2019Q1-cv/" target="_blank" rel="noopener noreferrer">
+        <a
+          id="contact-cv"
+          href="https://anastasia-zabela.github.io/rsschool-2019Q1-cv/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           CV
         </a>
       </div>

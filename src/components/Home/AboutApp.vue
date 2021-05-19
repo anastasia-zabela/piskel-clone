@@ -4,10 +4,10 @@
       <h2>This is a free online editor for animated sprites & pixel art</h2>
       <p>Go to create an animated sprite</p>
       <button class="landing-page__piskel-app--create-sprite">
-        <router-link to='/piskel-app'>Create sprite</router-link>
+        <router-link to="/piskel-app">Create sprite</router-link>
       </button>
     </div>
-    <img src='../../assets/screenshot.jpg' />
+    <img src="../../assets/screenshot.jpg" />
   </article>
 </template>
 

@@ -5,11 +5,12 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import CanvasForDraw from './CanvasForDraw.vue';
 import CanvasForView from './CanvasForView.vue';
 
-export default {
+export default defineComponent({
   name: 'CanvasContain',
   components: {
     CanvasForDraw,
@@ -20,7 +21,7 @@ export default {
       sizeCanvas: 32,
     };
   },
-};
+});
 </script>
 
 <style lang="less" scoped>

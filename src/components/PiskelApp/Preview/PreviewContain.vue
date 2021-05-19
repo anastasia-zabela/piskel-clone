@@ -1,20 +1,19 @@
 <template>
   <section class="preview-contain">
-      <div class="preview-contain__wrapper">
-          <PreviewCanvas
-            v-bind:fps="fps"
-             />
-          <FpsBlock />
-          <button class="preview-contain__fullscreen">Fullscreen</button>
-      </div>
+    <div class="preview-contain__wrapper">
+      <PreviewCanvas v-bind:fps="fps" />
+      <FpsBlock />
+      <button class="preview-contain__fullscreen">Fullscreen</button>
+    </div>
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import PreviewCanvas from './PreviewCanvas.vue';
 import FpsBlock from './PreviewFpsBlock.vue';
 
-export default {
+export default defineComponent({
   name: 'Preview',
   components: {
     PreviewCanvas,
@@ -72,7 +71,7 @@ export default {
   //     await animationFrames();
   //   },
   // },
-};
+});
 </script>
 
 <style lang="less">

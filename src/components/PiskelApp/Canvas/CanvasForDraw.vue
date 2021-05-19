@@ -2,20 +2,25 @@
   <canvas class="canvas-contain__secondary-canvas" width="800px" height="800px"></canvas>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'CanvasForDraw',
   props: {
-    sizeCanvas: Number,
+    sizeCanvas: {
+      type: Number,
+      required: true,
+    },
   },
   computed: {
-    ctx() {
+    ctx(): CanvasRenderingContext2D {
       return this.$el.getContext('2d');
     },
-    canvasWidth() {
+    canvasWidth(): number {
       return this.$el.clientWidth;
     },
-    sizeRect() {
+    sizeRect(): number {
       return this.canvasWidth / this.sizeCanvas;
     },
   },
@@ -28,7 +33,7 @@ export default {
     this.$store.state.canvas.sizeRect = this.sizeRect;
     console.log('canvas', this.canvasWidth, 'rect', this.sizeRect);
   },
-};
+});
 </script>
 
 <style lang="less" scoped>

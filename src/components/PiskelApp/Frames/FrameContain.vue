@@ -2,52 +2,56 @@
   <section class="frames-contain">
     <div class="frames-contain__wrapper">
       <div
-        is="frame"
         v-for="frame in frames"
         v-bind:key="frame.keyId"
         v-bind:num="frame.num"
         v-bind:notAlone="moreThenOneFrame"
         v-on:selectFrame="selectFrame"
         v-on:copyFrame="copyFrame"
-        v-on:deleteFrame="deleteFrame">
-      </div>
+        v-on:deleteFrame="deleteFrame"
+      ></div>
       <button class="frames-contain__frame-add" title="Add new frame" @click="addNewFrame">
-        <v-icon name="plus" scale="1.5" style=" margin-top: 2px; "></v-icon>
+        <v-icon name="plus" scale="1.5" style="margin-top: 2px"></v-icon>
       </button>
     </div>
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import Frame from './Frame.vue';
 
-export default {
+export default defineComponent({
   name: 'FrameContain',
-  components: {
-    Frame,
-  },
+  // components: {
+  //   Frame,
+  // },
   data() {
     return {
       frames: [
         {
           keyId: 0,
           num: 0,
-          frame: Frame,
+          // frame: Frame,
         },
-      ],
+      ] as {
+        keyId: number;
+        num: number;
+        frame: unknown;
+      }[],
       nextId: 1,
       nextNum: 1,
     };
   },
   computed: {
-    moreThenOneFrame() {
-      return this.frames.length > 1;
-    },
+    // moreThenOneFrame() {
+    //   return this.frames.length > 1;
+    // },
   },
   methods: {
     addNewFrame() {
-      const { ctxView, canvas } = this.$store.state.canvas;
-      ctxView.clearRect(0, 0, canvas.width, canvas.height);
+      const { ctxView, canvasWidth } = this.$store.state.canvas;
+      ctxView?.clearRect(0, 0, canvasWidth, canvasWidth);
 
       this.frames.push({
         keyId: this.nextId,
@@ -57,22 +61,23 @@ export default {
       this.nextId += 1;
       this.nextNum += 1;
     },
-    selectFrame(id) {
+    selectFrame(id: number) {
       const ctxCanvas = this.$store.state.canvas.ctxView;
-      const { canvas } = this.$store.state.canvas;
+      const { canvasWidth } = this.$store.state.canvas;
+      if (!ctxCanvas) return;
 
       this.$store.state.frames.currentFrame = id;
 
-      ctxCanvas.clearRect(0, 0, canvas.width, canvas.height);
+      ctxCanvas?.clearRect(0, 0, canvasWidth, canvasWidth);
       this.$store.state.frames.framesData[id].forEach((elem) => {
-        if (elem !== null) {
+        if (elem !== null && typeof elem !== 'number') {
           const color = elem[3];
-          ctxCanvas.fillStyle = color;
-          ctxCanvas.fillRect(elem[0], elem[1], elem[2], elem[2]);
+          ctxCanvas.fillStyle = String(color) || '';
+          ctxCanvas.fillRect(Number(elem[0]), Number(elem[1]), Number(elem[2]), Number(elem[2]));
         }
       });
     },
-    copyFrame(id) {
+    copyFrame(id: number) {
       this.frames.splice(id + 1, 0, {
         keyId: this.nextId,
         num: id,
@@ -91,7 +96,7 @@ export default {
 
       this.selectFrame(this.$store.state.frames.currentFrame + 1);
     },
-    deleteFrame(id) {
+    deleteFrame(id: number) {
       this.frames.splice(id, 1);
       this.$store.state.frames.framesData.splice(id, 1);
 
@@ -108,7 +113,7 @@ export default {
       this.selectFrame(this.$store.state.frames.currentFrame);
     },
   },
-};
+});
 </script>
 
 <style lang="less" scoped>
@@ -128,7 +133,7 @@ export default {
   }
 
   &__wrapper::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
     border-left: 2px solid @color-1;
   }
 

@@ -1,22 +1,24 @@
 <template>
   <section class="colors">
-
     <ColorPickerBlock
       v-bind:className="'primary-color'"
       v-bind:colorName="'primary'"
-      v-bind:defaultColor="primaryColor" />
+      v-bind:defaultColor="primaryColor"
+    />
     <ColorPickerBlock
       v-bind:className="'secondary-color'"
       v-bind:colorName="'secondary'"
-      v-bind:defaultColor="secondaryColor" />
+      v-bind:defaultColor="secondaryColor"
+    />
     <v-icon class="colors__arrow" v-bind:name="'level-up-alt'"></v-icon>
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import ColorPickerBlock from './ColorPickerBlock.vue';
 
-export default {
+export default defineComponent({
   name: 'ColorPicker',
   components: {
     ColorPickerBlock,
@@ -29,29 +31,29 @@ export default {
       return this.$store.state.colors.secondary;
     },
   },
-};
+});
 </script>
 
 <style lang="less">
-  .colors {
-    display: grid;
-    grid-template: 1fr 1fr 1fr e('/') 1fr 1fr 1fr;
-    width: 8vh;
-    height: 8vh;
+.colors {
+  display: grid;
+  grid-template: 1fr 1fr 1fr e('/') 1fr 1fr 1fr;
+  width: 8vh;
+  height: 8vh;
+  margin: auto;
+
+  &__arrow {
+    grid-area: 1 e('/') 3 e('/') 2 e('/') 4;
     margin: auto;
 
-    &__arrow {
-      grid-area: 1 e('/') 3 e('/') 2 e('/') 4;
-      margin: auto;
-
-      &:hover {
-        cursor: pointer;
-        color: lighten(@font-color-dark, 40%);
-      }
-    }
-
-    & svg {
-      transform: rotate(-90deg);
+    &:hover {
+      cursor: pointer;
+      color: lighten(@font-color-dark, 40%);
     }
   }
+
+  & svg {
+    transform: rotate(-90deg);
+  }
+}
 </style>

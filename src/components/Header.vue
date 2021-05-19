@@ -3,22 +3,26 @@
     <h1>Piskel clone</h1>
     <nav class="header__navigation-auth">
       <ul>
-        <li>
-          <router-link to='/'>Home</router-link>
-        </li>
-        <li>
-          <router-link to='/piskel-app'>Create sprite</router-link>
+        <li v-for="route in routesList" :key="route.path">
+          <router-link class="router-link" :to="route.path">{{ route.title }}</router-link>
         </li>
       </ul>
     </nav>
-
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { routes } from '../main';
+
+export default defineComponent({
   name: 'Header',
-};
+  data() {
+    return {
+      routesList: routes,
+    };
+  },
+});
 </script>
 
 <style scoped lang="less">
@@ -49,13 +53,20 @@ export default {
     margin: auto;
     height: 100%;
     width: 250px;
+  }
 
-    & a {
-      color: @font-color-light;
+  & .router-link {
+    color: @font-color-light;
 
-      &:hover {
-        color: @color-2;
-      }
+    &:hover {
+      color: @color-2;
+    }
+  }
+  & .router-link-active {
+    color: @color-1;
+
+    &:hover {
+      color: @color-1;
     }
   }
 }

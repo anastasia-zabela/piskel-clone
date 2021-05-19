@@ -1,34 +1,38 @@
 <template>
   <button
-    v-bind:class="[{active: isActive}, 'tools__button-tool']"
-    v-bind:title="tooltip"
-    v-on:click="chooseTool">
-    <v-icon scale="1.5" v-bind:name="iconTool"></v-icon>
+    v-bind:class="[{ active: isActive }, 'tools__button-tool']"
+    v-bind:title="title"
+    v-on:click="chooseTool"
+  >
+    <font-awesome-icon :size="'2x'" :icon="iconTool"></font-awesome-icon>
   </button>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'Tool',
   data() {
-    return {
-
-    };
+    return {};
   },
   props: {
-    nameTool: String,
+    nameTool: {
+      type: String,
+      required: true,
+    },
     iconTool: String,
     title: String,
     shortcut: String,
   },
   computed: {
-    isActive() {
+    isActive(): boolean {
       return this.$store.state.currentTool === this.nameTool;
     },
-    currentTool() {
+    currentTool(): string {
       return this.$store.state.currentTool;
     },
-    tooltip() {
+    tooltip(): string {
       return `${this.title} ${this.shortcut}`;
     },
   },
@@ -37,5 +41,5 @@ export default {
       this.$store.state.currentTool = this.nameTool;
     },
   },
-};
+});
 </script>
