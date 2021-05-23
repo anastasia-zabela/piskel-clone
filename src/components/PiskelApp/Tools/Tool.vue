@@ -1,15 +1,16 @@
 <template>
   <button
-    v-bind:class="[{ active: isActive }, 'tools__button-tool']"
-    v-bind:title="title"
+    :class="[{ active: isActive }, 'tools__button-tool']"
+    :title="title"
     v-on:click="chooseTool"
   >
-    <font-awesome-icon :size="'2x'" :icon="iconTool"></font-awesome-icon>
+    <font-awesome-icon size="2x" :icon="iconTool"></font-awesome-icon>
   </button>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
+import { Tools } from '@/common/interfaces/tools';
 
 export default defineComponent({
   name: 'Tool',
@@ -18,12 +19,21 @@ export default defineComponent({
   },
   props: {
     nameTool: {
+      type: String as PropType<Tools>,
+      required: true,
+    },
+    iconTool: {
+      type: [String, Array],
+      required: true,
+    },
+    title: {
       type: String,
       required: true,
     },
-    iconTool: String,
-    title: String,
-    shortcut: String,
+    shortcut: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     isActive(): boolean {

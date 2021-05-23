@@ -1,17 +1,17 @@
 <template>
   <section class="frames-contain">
     <div class="frames-contain__wrapper">
-      <div
-        v-for="frame in frames"
-        v-bind:key="frame.keyId"
-        v-bind:num="frame.num"
-        v-bind:notAlone="moreThenOneFrame"
+      <frame
+        v-for="(frame, index) in frames"
+        :key="frame.key"
+        :num="index"
+        :notAlone="moreThenOneFrame"
         v-on:selectFrame="selectFrame"
         v-on:copyFrame="copyFrame"
         v-on:deleteFrame="deleteFrame"
-      ></div>
+      ></frame>
       <button class="frames-contain__frame-add" title="Add new frame" @click="addNewFrame">
-        <v-icon name="plus" scale="1.5" style="margin-top: 2px"></v-icon>
+        <font-awesome-icon size="2x" icon="plus" style="margin-top: 2px"></font-awesome-icon>
       </button>
     </div>
   </section>
@@ -20,33 +20,27 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Frame from './Frame.vue';
+import { IFrame } from '../../../common/interfaces/frame';
 
 export default defineComponent({
   name: 'FrameContain',
-  // components: {
-  //   Frame,
-  // },
+  components: {
+    Frame,
+  },
   data() {
     return {
       frames: [
         {
-          keyId: 0,
-          num: 0,
-          // frame: Frame,
+          id: 0,
         },
-      ] as {
-        keyId: number;
-        num: number;
-        frame: unknown;
-      }[],
+      ] as IFrame[],
       nextId: 1,
-      nextNum: 1,
     };
   },
   computed: {
-    // moreThenOneFrame() {
-    //   return this.frames.length > 1;
-    // },
+    moreThenOneFrame(): boolean {
+      return this.frames.length > 1;
+    },
   },
   methods: {
     addNewFrame() {
@@ -54,19 +48,16 @@ export default defineComponent({
       ctxView?.clearRect(0, 0, canvasWidth, canvasWidth);
 
       this.frames.push({
-        keyId: this.nextId,
-        num: this.nextNum,
-        frame: Frame,
+        id: this.nextId,
       });
       this.nextId += 1;
-      this.nextNum += 1;
     },
     selectFrame(id: number) {
       const ctxCanvas = this.$store.state.canvas.ctxView;
       const { canvasWidth } = this.$store.state.canvas;
       if (!ctxCanvas) return;
 
-      this.$store.state.frames.currentFrame = id;
+      this.$store.state.frames.currentFrameNum = id;
 
       ctxCanvas?.clearRect(0, 0, canvasWidth, canvasWidth);
       this.$store.state.frames.framesData[id].forEach((elem) => {
@@ -79,38 +70,24 @@ export default defineComponent({
     },
     copyFrame(id: number) {
       this.frames.splice(id + 1, 0, {
-        keyId: this.nextId,
-        num: id,
-        frame: Frame,
+        id: this.nextId,
       });
       this.nextId += 1;
-      this.nextNum += 1;
-
-      this.frames.forEach((item, i) => {
-        const frame = item;
-        frame.num = i;
-      });
 
       const copyFrameData = this.$store.state.frames.framesData.slice(id, id + 1);
       this.$store.state.frames.framesData.splice(id + 1, 0, copyFrameData[0]);
 
-      this.selectFrame(this.$store.state.frames.currentFrame + 1);
+      this.selectFrame(this.$store.state.frames.currentFrameNum + 1);
     },
     deleteFrame(id: number) {
       this.frames.splice(id, 1);
       this.$store.state.frames.framesData.splice(id, 1);
 
-      this.frames.forEach((item, i) => {
-        const frame = item;
-        frame.num = i;
-      });
-      this.nextNum = this.frames.length;
-
-      if (this.$store.state.frames.currentFrame === this.frames.length) {
-        this.$store.state.frames.currentFrame = this.frames.length - 1;
+      if (this.$store.state.frames.currentFrameNum === this.frames.length) {
+        this.$store.state.frames.currentFrameNum = this.frames.length - 1;
       }
 
-      this.selectFrame(this.$store.state.frames.currentFrame);
+      this.selectFrame(this.$store.state.frames.currentFrameNum);
     },
   },
 });

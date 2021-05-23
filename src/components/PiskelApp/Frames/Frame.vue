@@ -10,18 +10,18 @@
       v-bind:class="['frames-contain__tool--delete-tool', { 'visible-tools': hoverOn && notAlone }]"
       @click="$emit('deleteFrame', num)"
     >
-      <v-icon name="trash"></v-icon>
+      <font-awesome-icon icon="trash"></font-awesome-icon>
     </button>
     <button
       v-bind:class="['frames-contain__tool--move-tool', { 'visible-tools': hoverOn && notAlone }]"
     >
-      <v-icon name="arrows-alt"></v-icon>
+      <font-awesome-icon icon="arrows-alt"></font-awesome-icon>
     </button>
     <button
       v-bind:class="['frames-contain__tool--copy-tool', { 'visible-tools': hoverOn }]"
       @click="$emit('copyFrame', num)"
     >
-      <v-icon name="clone"></v-icon>
+      <font-awesome-icon icon="clone"></font-awesome-icon>
     </button>
   </div>
 </template>
@@ -32,7 +32,10 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'Frame',
   props: {
-    num: Number,
+    num: {
+      type: Number,
+      required: true,
+    },
     notAlone: Boolean,
     deleteFrame: Function,
     copyFrame: Function,
@@ -45,7 +48,7 @@ export default defineComponent({
   },
   computed: {
     isSelect(): boolean {
-      return this.$props.num === this.$store.state.frames.currentFrame;
+      return this.$props.num === this.$store.state.frames.currentFrameNum;
     },
   },
   watch: {
@@ -64,9 +67,9 @@ export default defineComponent({
     },
   },
   mounted() {
-    const frameCanvas = this.$el.children[0];
-    frameCanvas.width = this.$el.clientWidth;
-    frameCanvas.height = this.$el.clientWidth;
+    const frameCanvasEl = this.$el.children[0];
+    frameCanvasEl.width = this.$el.clientWidth;
+    frameCanvasEl.height = this.$el.clientWidth;
     this.$store.state.frames.frameWidth = this.$el.clientWidth;
 
     const {
@@ -74,14 +77,14 @@ export default defineComponent({
       frames: { ctxFrame },
     } = this.$store.state;
 
-    if (!this.$store.state.frames.framesData[Number(this.num)]) {
+    if (!this.$store.state.frames.framesData[this.num]) {
       this.$store.state.frames.framesData.push(
         new Array(this.$store.state.canvas.sizeCanvas ** 2).fill(null),
       );
     }
 
-    this.$store.state.frames.currentFrame = Number(this.num);
-    this.$store.state.frames.ctxFrame = frameCanvas.getContext('2d');
+    this.$store.state.frames.currentFrameNum = this.num;
+    this.$store.state.frames.ctxFrame = frameCanvasEl.getContext('2d');
 
     if (canvas && ctxFrame) {
       ctxFrame.drawImage(canvas, 0, 0, this.$el.clientWidth, this.$el.clientWidth);

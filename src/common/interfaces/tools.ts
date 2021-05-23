@@ -1,4 +1,4 @@
-export enum Tool {
+export enum Tools {
   pen = 'pen',
   paintBucket = 'paint-bucket',
   sameColor = 'same-color',

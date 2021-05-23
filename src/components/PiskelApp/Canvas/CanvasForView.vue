@@ -4,10 +4,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import addPenTool from '../Tools/pen';
+import { Pen } from '../../../models/Pen';
 
 export default defineComponent({
   name: 'CanvasForView',
+  data() {
+    return {
+      pen: new Pen(this.$store),
+    };
+  },
   computed: {
     ctx() {
       return this.$el.getContext('2d');
@@ -20,7 +25,7 @@ export default defineComponent({
     this.$store.state.canvas.canvas = this.$el;
     this.$store.state.canvas.ctxView = this.ctx;
 
-    addPenTool(this.$refs.canvas as HTMLCanvasElement);
+    this.pen.addPenTool(this.$refs.canvas as HTMLCanvasElement);
   },
 });
 </script>

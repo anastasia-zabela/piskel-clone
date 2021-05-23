@@ -10,6 +10,11 @@ import {
   faSlash,
   faVectorSquare,
   faAdjust,
+  faPlus,
+  faTrash,
+  faClone,
+  faArrowsAlt,
+  faLevelUpAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { faDelicious } from '@fortawesome/free-brands-svg-icons';
@@ -54,6 +59,11 @@ library.add(
   faAdjust,
   faCircle,
   faDelicious,
+  faPlus,
+  faTrash,
+  faClone,
+  faArrowsAlt,
+  faLevelUpAlt,
 );
 app.component('font-awesome-icon', FontAwesomeIcon);
 

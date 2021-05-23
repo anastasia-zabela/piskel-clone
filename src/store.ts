@@ -2,7 +2,7 @@
 // import Vuex from 'vuex';
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
-import { Tool } from './common/interfaces/tools';
+import { Tools } from './common/interfaces/tools';
 
 export const key: InjectionKey<Store<IStore>> = Symbol();
 
@@ -18,7 +18,7 @@ export interface IStore {
   frames: {
     framesData: (number | (number | string)[] | null)[][];
     frameWidth: number;
-    currentFrame: number;
+    currentFrameNum: number;
     ctxFrame: CanvasRenderingContext2D | null;
   };
   tools: {
@@ -29,7 +29,7 @@ export interface IStore {
   toolsIsActive: {
     pen: boolean;
   };
-  currentTool: string;
+  currentTool: Tools;
   canvas: {
     canvas: HTMLCanvasElement | null;
     canvasWidth: number;
@@ -48,62 +48,64 @@ export interface IStore {
   };
 }
 
+export type TStore = Store<IStore>;
+
 export const store = createStore<IStore>({
   state: {
     frames: {
       framesData: [],
       frameWidth: 0,
-      currentFrame: 0,
+      currentFrameNum: 0,
       ctxFrame: null,
     },
     tools: [
       {
-        name: Tool.pen,
+        name: Tools.pen,
         icon: 'pen',
         shortcut: 'P',
       },
       {
-        name: Tool.paintBucket,
+        name: Tools.paintBucket,
         icon: 'fill-drip',
         shortcut: 'B',
       },
       {
-        name: Tool.sameColor,
+        name: Tools.sameColor,
         icon: 'palette',
         shortcut: 'A',
       },
       {
-        name: Tool.colorPicker,
+        name: Tools.colorPicker,
         icon: 'eye-dropper',
         shortcut: 'O',
       },
       {
-        name: Tool.eraser,
+        name: Tools.eraser,
         icon: 'eraser',
         shortcut: 'E',
       },
       {
-        name: Tool.line,
+        name: Tools.line,
         icon: 'slash',
         shortcut: 'L',
       },
       {
-        name: Tool.rectangle,
+        name: Tools.rectangle,
         icon: 'vector-square',
         shortcut: 'R',
       },
       {
-        name: Tool.circle,
+        name: Tools.circle,
         icon: ['far', 'circle'],
         shortcut: 'C',
       },
       {
-        name: Tool.dithering,
+        name: Tools.dithering,
         icon: ['fab', 'delicious'],
         shortcut: 'T',
       },
       {
-        name: Tool.lighten,
+        name: Tools.lighten,
         icon: 'adjust',
         shortcut: 'U',
       },
@@ -111,7 +113,7 @@ export const store = createStore<IStore>({
     toolsIsActive: {
       pen: false,
     },
-    currentTool: 'pen',
+    currentTool: Tools.pen,
     canvas: {
       canvas: null,
       canvasWidth: 0,
@@ -133,6 +135,6 @@ export const store = createStore<IStore>({
   actions: {},
 });
 
-export const useStore = (): Store<IStore> => {
+export const useStore = (): TStore => {
   return baseUseStore(key);
 };
