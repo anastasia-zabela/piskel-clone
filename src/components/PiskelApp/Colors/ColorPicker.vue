@@ -2,11 +2,11 @@
   <div class="color-picker">
     <div class="spectrum-map" @mousedown="startGetSpectrumColor">
       <div class="spectrum-map__color-cursor"></div>
-      <canvas class="spectrum-map__spectrum-canvas" width="150px" height="150px"></canvas>
+      <canvas class="spectrum-map__spectrum-canvas" width="150" height="150"></canvas>
     </div>
     <div class="hue-color" @mousedown="startGetHueColor">
       <div class="hue-color__hue-cursor" v-bind:style="{ background: colorHue, top: hueY }"></div>
-      <canvas class="hue-color__hue-canvas" height="140px"></canvas>
+      <canvas class="hue-color__hue-canvas" height="140"></canvas>
     </div>
     <div class="color-input">
       <div v-if="colorFormat === 'hex'" class="color-input-hex">
@@ -89,6 +89,7 @@ export default defineComponent({
       const spectrumCanvas: HTMLCanvasElement | null = document.querySelector(
         '.spectrum-map__spectrum-canvas',
       );
+      console.log(spectrumCanvas);
       if (!spectrumCanvas) return;
       const ctxSpectrum = spectrumCanvas.getContext('2d');
       if (!ctxSpectrum) return;
@@ -387,7 +388,7 @@ export default defineComponent({
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: 25px;
   }
 }
 

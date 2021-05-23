@@ -1,16 +1,16 @@
 <template>
   <section class="colors">
     <ColorPickerBlock
-      v-bind:className="'primary-color'"
-      v-bind:colorName="'primary'"
-      v-bind:defaultColor="primaryColor"
+      :className="'primary-color'"
+      :colorName="'primary'"
+      :defaultColor="primaryColor"
     />
     <ColorPickerBlock
-      v-bind:className="'secondary-color'"
-      v-bind:colorName="'secondary'"
-      v-bind:defaultColor="secondaryColor"
+      :className="'secondary-color'"
+      :colorName="'secondary'"
+      :defaultColor="secondaryColor"
     />
-    <v-icon class="colors__arrow" v-bind:name="'level-up-alt'"></v-icon>
+    <font-awesome-icon icon="level-up-alt" class="colors__arrow"></font-awesome-icon>
   </section>
 </template>
 
